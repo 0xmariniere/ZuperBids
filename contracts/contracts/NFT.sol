@@ -2,15 +2,12 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract MyNFT is ERC721 {
-    using Strings for uint256;
-
+contract MyNFT is ERC721, Ownable, ReentrancyGuard {
     uint256 public tokenCounter;
     mapping(uint256 => Auction) public auctions;
-    mapping(uint256 => string) public tokenURIHashes;
-    string public baseURI;
 
     struct Auction {
         bool isActive;
@@ -18,57 +15,58 @@ contract MyNFT is ERC721 {
         address owner;
         uint256 highestBid;
         address highestBidder;
+        string tokenURIHash;
     }
 
-    constructor(string memory baseURI_) ERC721("MyNFT", "MNFT") {
+    event AuctionCreated(uint256 tokenId);
+    event BidPlaced(uint256 tokenId, address bidder, uint256 bid);
+
+    constructor() ERC721("MyNFT", "MNFT") {
         tokenCounter = 0;
-        baseURI = baseURI_;
     }
 
-    function createTokenAndStartAuction(uint256 auctionEndTime, string memory ipfsHash) public returns (uint256) {
+    function createTokenAndStartAuction(string memory tokenURIHash, uint256 auctionEndTime) public returns (uint256) {
         tokenCounter += 1;
         _mint(msg.sender, tokenCounter);
-        auctions[tokenCounter] = Auction(true, auctionEndTime, msg.sender, 0, address(0));
-        tokenURIHashes[tokenCounter] = ipfsHash;
+        auctions[tokenCounter] = Auction(true, auctionEndTime, msg.sender, 0, address(0), tokenURIHash);
+        emit AuctionCreated(tokenCounter);
         return tokenCounter;
     }
 
-    function bid(uint256 tokenId) public payable {
-        Auction storage auction = auctions[tokenId];
-        require(auction.isActive, "Auction is not active");
-        require(auction.endTime >= block.timestamp, "Auction is ended");
-        require(msg.value > auction.highestBid, "There already is a higher bid");
+    function placeBid(uint256 tokenId) public payable nonReentrant {
+        require(auctions[tokenId].isActive, "Auction is not active");
+        require(msg.value > auctions[tokenId].highestBid, "Bid is not high enough");
+        require(block.timestamp < auctions[tokenId].endTime, "Auction has ended");
 
-        if (auction.highestBid != 0) {
-            (bool success, ) = payable(auction.highestBidder).call{value: auction.highestBid}("");
-            require(success);
+        // Refund the previous highest bidder
+        if (auctions[tokenId].highestBidder != address(0)) {
+            payable(auctions[tokenId].highestBidder).transfer(auctions[tokenId].highestBid);
         }
 
-        auction.highestBid = msg.value;
-        auction.highestBidder = msg.sender;
+        auctions[tokenId].highestBid = msg.value;
+        auctions[tokenId].highestBidder = msg.sender;
+        emit BidPlaced(tokenId, msg.sender, msg.value);
     }
 
-    function endAuction(uint256 tokenId) public {
-        Auction storage auction = auctions[tokenId];
-        require(msg.sender == auction.owner, "You are not the auction owner");
-        require(auction.isActive, "Auction is not active");
-        require(auction.endTime < block.timestamp, "Auction is not yet ended");
+    function endAuction(uint256 tokenId) public nonReentrant {
+        require(auctions[tokenId].isActive, "Auction is not active");
+        require(block.timestamp >= auctions[tokenId].endTime || msg.sender == owner(), "Auction has not ended");
 
-        auction.isActive = false;
-        _transfer(auction.owner, auction.highestBidder, tokenId);
+        auctions[tokenId].isActive = false;
 
-        (bool success, ) = payable(auction.owner).call{value: auction.highestBid}( "");
-        require(success);
+        // Transfer the token to the highest bidder
+        _transfer(auctions[tokenId].owner, auctions[tokenId].highestBidder, tokenId);
+
+        // Transfer the highest bid to the owner of the token
+        payable(auctions[tokenId].owner).transfer(auctions[tokenId].highestBid);
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
+        return "";
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-
-        string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenURIHashes[tokenId])) : "";
+        return auctions[tokenId].tokenURIHash;
     }
 }

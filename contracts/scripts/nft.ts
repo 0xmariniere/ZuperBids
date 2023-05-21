@@ -5,7 +5,7 @@ async function main() {
   const [deployer, recipient] = await ethers.getSigners()
 
   const args: any[] = []
-  const NexthFT = await ethers.getContractFactory('NexthFT')
+  const NexthFT = await ethers.getContractFactory('MyNFT')
   const nft = await NexthFT.deploy(...args)
 
   await nft.deployed()
@@ -29,9 +29,7 @@ async function main() {
     }
   }
 
-  // Send some NFTs as an example
-  await nft.safeMint(deployer.address)
-  await nft.safeMint(recipient.address)
+  await nft.createTokenAndStartAuction('https://lnfts.infura-ipfs.io/ipfs/QmaqyjZ4x1D8KtQGgstbsGQrGF3MCTCrtuetpRcsSHnvMk', 1684622321)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

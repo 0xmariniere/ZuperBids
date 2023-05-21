@@ -1,5 +1,6 @@
 import { ThemingProps } from '@chakra-ui/react'
 import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
+import { polygonMumbai } from 'viem/chains'
 
 export const SITE_NAME = 'Nexth'
 export const SITE_DESCRIPTION = 'Next.js + Ethereum starter kit'
@@ -14,7 +15,7 @@ export const THEME_CONFIG = {
 export const SOCIAL_TWITTER = 'wslyvh'
 export const SOCIAL_GITHUB = 'wslyvh/nexth'
 
-export const ETH_CHAINS = [mainnet, sepolia, polygon, optimism, arbitrum]
+export const ETH_CHAINS = [polygonMumbai]
 
 export const SERVER_SESSION_SETTINGS = {
   cookieName: SITE_NAME,
