@@ -1,43 +1,43 @@
-# Nexth
+<div align="center">
+✨  ZuperBids ✨ 
+Blockchain-based Auction Platform for the Zuzalu Fam
 
-A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
+</div>
+🎯 What's this all about?
+Let's raise money for Zuzalu.eth through interactive, community centered epic live auctions. Zupass holders can bid on unique physical & digital items as well as experiences, and contribute to the community's growth. Built using React and Ethereum's Optimism layer 2, ZuperBids is your community first live auctions platform.
 
-![Nexth Readme Image](./readme.png)
+🛠️ Let's get it up and running
+Ready to explore Zuperbids on your local machine? Here's how:
 
-## Getting Started 👀
+First, make sure you've got Node.js and npm installed. Get 'em from here.
+>> Clone the repository: git clone https://github.com/username/zuperbids.git
+>> Dive into the zuperbids directory: cd zuperbids
+>> Install dependencies: npm install
+>> Fire up the development server: npm start
+>> Open up http://localhost:3000 in your browser to see it live.
 
-Check-out the [example pages](./src/pages/examples/) or [live demo](https://nexth.vercel.app/) to see how you can use this starter kit.
+🕹️ How to use Zuperbids
+As a Zupass holder, you can join our live auction, bid on your favourite items, and even submit your own auction lot(s). 
 
-## Features ✅
+👀 Sneak Peek
+(Placeholder -  screenshots, videos, or live demo links here)
 
-- [Next.js](https://nextjs.org/docs)
-- [Chakra UI](https://chakra-ui.com/)
-- [viem](https://viem.sh/)
-- [wagmi](https://wagmi.sh/)
-- [Web3Modal SDK from WalletConnect](https://docs.walletconnect.com/)
-- [Sign-In with Ethereum](https://www.login.xyz/)
-- [usehooks-ts](https://usehooks-ts.com/)
-- [next-SEO](https://github.com/garmeeh/next-seo)
+💻 Technology Stack
 
-## Developer Experience 🧰
+Frontend Magic: React.js
+Blockchain Magic: Optimism
+Smart Contract Code: Solidity
+Keep it in the family: Zupass
+State Management: Redux (coming soon)
+Styling Superpowers: Material-UI (coming soon)
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [eslint](https://eslint.org/)
-- [prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
+👩‍💻👨‍💻 Want to contribute?
+The more the merrier.. DM TG @xmariniere
 
-## Development 🛠️
+📃 License
+Zuperbids is licensed under the MIT License. Take a look at the LICENSE.md file for more details.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+🙌 Kuddos
 
-## Deploy on Vercel 🚢
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwslyvh%2Fnexth)
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=nexth&filter=next.js&utm_source=nexth&utm_campaign=nexth-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Our awesome Zuzalu community.
+The Ethereum and React communities for their amazing open-source tools.
