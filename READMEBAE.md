@@ -5,7 +5,7 @@
 <p> Welcome to the Zuzalu block party, where Zupass holders come to splash some digital cash to fundraise for Zuzalu.eth, all the while scoring one-of-a-kind goodies and experiences. All this, built on the hip and happening tech duo of React and Optimism.  ZuperBids - the platform for community centered epic live auctions!</p>
 <hr>
 
-<h2>🛠️ Let's get it up and running</h2>
+<h3>🛠️ Launchpad</h3>
 <p>Ready to explore Zuperbids on your local machine? Here's how:</p>
 <ol>
   <li>First, make sure you've got Node.js and npm installed. Get 'em from <a href="https://nodejs.org/en/download/">here</a>.</li>
@@ -17,15 +17,15 @@
 <p>Open up <a href="http://localhost:3000">http://localhost:3000</a> in your browser to see it live.</p>
 <hr>
 
-<h2>🕹️ How to use Zuperbids</h2>
+<h3>🕹️ How to use Zuperbids</h3>
 <p>As a Zupass holder, you can join our live auction, bid on your favourite items, and even submit your own auction lot(s).</p>
 <hr>
 
-<h2>👀 Sneak Peek</h2>
+<h3>👀 Sneak Peek</h3>
 <p>(Placeholder - screenshots, videos, or live demo links here)</p>
 <hr>
 
-<h2>💻 Technology Stack</h2>
+<h3>💻 Technology Stack</h3>
 <ul>
   <li>Frontend Magic: React.js</li>
   <li>Blockchain Magic: Optimism</li>
@@ -36,15 +36,15 @@
 </ul>
 <hr>
 
-<h2>👩‍💻👨‍💻 Want to contribute?</h2>
+<h3>👩‍💻👨‍💻 Want to contribute?</h3>
 <p>The more the merrier.. DM TG <a href="https://t.me/xmariniere">@xmariniere</a></p>
 <hr>
 
-<h2>📃 License</h2>
+<h3>📃 License</h3>
 <p>Zuperbids is licensed under the MIT License. Take a look at the <a href="LICENSE.md">LICENSE.md</a> file for more details.</p>
 <hr>
 
-<h2>🙌 Kudos</h2>
+<h3>🙌 Kudos</h3>
 <ul>
-  <li> ---- Under Contructions -----
+  <p> ---- Under Contructions -----
 </ul>
