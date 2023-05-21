@@ -1,20 +1,42 @@
-import { Text } from '@chakra-ui/react'
 import { Head } from 'components/layout/Head'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
-import { LinkComponent } from 'components/layout/LinkComponent'
-import useAuctionItem from 'hooks/useAuctionItem'
+import { myNftABI } from 'abis'
+import { CONTRACT_ADDRESS } from 'utils/config'
+import { CardList } from 'components/layout/CardList'
+import { useContractRead } from 'wagmi'
+
 export default function Home() {
-  const { data, isLoading, isError } = useAuctionItem({ id: 1 })
+  const {
+    data: allAuctions,
+    isError,
+    isLoading,
+  } = useContractRead({
+    address: CONTRACT_ADDRESS,
+    abi: myNftABI,
+    functionName: 'getAllAuctions',
+  })
   return (
     <>
       <Head />
 
       <main>
-        <HeadingComponent as="h2">Next.js + Ethereum starter kit</HeadingComponent>
-        <Text>Quickly ship Web3 Apps ⚡</Text>
-        <Text py={4}>
-          <LinkComponent href="examples">View examples</LinkComponent> to bootstrap development.
-        </Text>
+        {!allAuctions || isLoading ? (
+          <HeadingComponent as="h1" size="2xl">
+            Loading...
+          </HeadingComponent>
+        ) : (
+          <CardList
+            title="Auctions"
+            items={allAuctions.map((auction) => {
+              return {
+                title: 'test',
+                description: 'test',
+                image: auction.tokenURIHash,
+                url: auction.tokenURIHash,
+              }
+            })}
+          />
+        )}
       </main>
     </>
   )

@@ -1,16 +1,8 @@
-import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction, useNetwork, useContractRead } from 'wagmi'
+import { useContractRead } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { myNftABI } from 'abis'
-import { BigNumber } from 'ethers'
+import { CONTRACT_ADDRESS } from 'utils/config'
 
-// struct Auction {
-//   bool isActive;
-//   uint256 endTime;
-//   address owner;
-//   uint256 highestBid;
-//   address highestBidder;
-//   string tokenURIHash;
-// }
 interface AcutionItem {
   isActive: boolean
   endTime: BigInt
@@ -24,11 +16,12 @@ const useAuctionItem = ({ id }: { id: number }) => {
   const [auctionItem, setAuctionItem] = useState<AcutionItem | null>(null)
 
   const { data, isError, isLoading } = useContractRead({
-    address: '0x29f48d86Df2281A880013902422f71F79990E859',
+    address: CONTRACT_ADDRESS,
     abi: myNftABI,
     functionName: 'auctions',
     args: [BigInt(id)],
   })
+
   useEffect(() => {
     if (data) {
       setAuctionItem({
@@ -48,7 +41,7 @@ const useAuctionItem = ({ id }: { id: number }) => {
     }
   }, [auctionItem])
 
-  return { auctionItem, setAuctionItem, data, isError, isLoading }
+  return { auctionItem }
 }
 
 export default useAuctionItem

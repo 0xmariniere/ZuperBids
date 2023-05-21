@@ -30,6 +30,10 @@ async function main() {
   }
 
   await nft.createTokenAndStartAuction('https://lnfts.infura-ipfs.io/ipfs/QmaqyjZ4x1D8KtQGgstbsGQrGF3MCTCrtuetpRcsSHnvMk', 1684622321)
+  await nft.createTokenAndStartAuction('https://dl.openseauserdata.com/cache/originImage/files/19c6dba98fdcc359d566669009f37a4a.jpg', 1684622321)
+  await nft.createTokenAndStartAuction('https://dl.openseauserdata.com/cache/originImage/files/19c6dba98fdcc359d566669009f37a4a.jpg', 1684622321)
+  await nft.createTokenAndStartAuction('https://dl.openseauserdata.com/cache/originImage/files/19c6dba98fdcc359d566669009f37a4a.jpg', 1684622321)
+  await nft.createTokenAndStartAuction('https://dl.openseauserdata.com/cache/originImage/files/19c6dba98fdcc359d566669009f37a4a.jpg', 1684622321)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

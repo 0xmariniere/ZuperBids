@@ -5,7 +5,7 @@ import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { PassportScore } from './PassportScore'
 import { Web3Button } from '@web3modal/react'
-
+import CreateForm from 'components/elements/CreateForm'
 interface Props {
   className?: string
 }
@@ -25,6 +25,7 @@ export function Header(props: Props) {
 
       <Flex alignItems="center" gap={4}>
         <PassportScore />
+        <CreateForm />
         <Web3Button icon="hide" label="Connect" />
         <ThemeSwitcher />
       </Flex>

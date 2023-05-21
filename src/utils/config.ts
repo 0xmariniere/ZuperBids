@@ -24,3 +24,5 @@ export const SERVER_SESSION_SETTINGS = {
     secure: process.env.NODE_ENV === 'production',
   },
 }
+
+export const CONTRACT_ADDRESS = '0x7b125261260b358eb6C7777227Fd60876f0aB7B1'
