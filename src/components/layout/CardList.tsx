@@ -3,17 +3,21 @@ import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue } from '@chak
 import { LinkComponent } from './LinkComponent'
 import { HeadingComponent } from './HeadingComponent'
 
-interface ListItemType {
-  title: string
+interface ListiType {
+  isActive: boolean
+  endTime: BigInt
+  owner: string
+  highestBid: BigInt
+  highestBidder: string
+  tokenURIHash: string
+  name: string
   description: string
-  image: string
-  url?: string
 }
 
 interface Props {
   className?: string
   title?: string
-  items: ListItemType[]
+  is: ListiType[]
 }
 
 export function CardList(props: Props) {
@@ -25,24 +29,24 @@ export function CardList(props: Props) {
       {props.title && <HeadingComponent as="h3">{props.title}</HeadingComponent>}
 
       <Flex direction="column" gap={4}>
-        {props.items.map((i, index) => {
+        {props.is.map((i, index) => {
           return (
-            <Card key={`${index}_${i.title}`} variant="outline" size="sm">
+            <Card key={`${index}_${i.name}`} variant="outline" size="sm">
               <CardBody>
                 <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
                   <Flex px={{ base: 0, sm: 4 }}>
-                    <Image objectFit="contain" maxW="60px" src={i.image} alt={i.title} filter={`invert(${invert})`} />
+                    <Image objectFit="contain" maxW="60px" src={i.tokenURIHash} alt={i.name} filter={`invert(${invert})`} />
                   </Flex>
 
                   <Flex direction="column">
-                    {i.url && (
-                      <LinkComponent href={i.url}>
-                        <HeadingComponent as="h4">{i.title}</HeadingComponent>
-                      </LinkComponent>
-                    )}
-                    {!i.url && <HeadingComponent as="h4">{i.title}</HeadingComponent>}
+                    <HeadingComponent as="h4">i {i.name}</HeadingComponent>
 
-                    <Text mt={4}>{i.description}</Text>
+                    <Text mt={4}>
+                      Owner: {i.owner} <br />
+                      Highest Bid: {Number(i.highestBid)} ETH by {i.highestBidder} <br />
+                      Status: {i.isActive ? 'Live' : 'Ended'} <br />
+                      description: {i.description}
+                    </Text>
                   </Flex>
                 </Flex>
               </CardBody>

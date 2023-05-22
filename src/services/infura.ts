@@ -18,7 +18,9 @@ export default class Infura {
   }
 
   public async uploadMetadata(file: any) {
+    console.log(file)
     const cid = await this.ipfsClient.add(file)
+    console.log(cid)
     return {
       cid: cid.path,
       url: `https://lnfts.infura-ipfs.io/ipfs/${cid.path}`,

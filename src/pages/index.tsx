@@ -15,6 +15,7 @@ export default function Home() {
     abi: myNftABI,
     functionName: 'getAllAuctions',
   })
+  console.log(allAuctions)
   return (
     <>
       <Head />
@@ -27,12 +28,16 @@ export default function Home() {
         ) : (
           <CardList
             title="Auctions"
-            items={allAuctions.map((auction) => {
+            is={allAuctions.map((auction) => {
               return {
-                title: 'test',
-                description: 'test',
-                image: auction.tokenURIHash,
-                url: auction.tokenURIHash,
+                name: auction.name,
+                description: auction.description,
+                tokenURIHash: auction.tokenURIHash,
+                owner: auction.owner,
+                highestBid: auction.highestBid,
+                highestBidder: auction.highestBidder,
+                endTime: auction.endTime,
+                isActive: auction.isActive,
               }
             })}
           />

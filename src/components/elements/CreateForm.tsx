@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Button,
   FormControl,
@@ -32,26 +32,27 @@ export function CreateAuctionModal() {
   const [description, setDescription] = useState('')
   const [tokenURIHash, setTokenURIHash] = useState('')
   const [auctionEndTime, setAuctionEndTime] = useState('')
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   const toast = useToast()
   const infura = new Infura()
 
-  const { data, isLoading, isSuccess, write } = useContractWrite({
+  const { data, isLoading, isSuccess, write, isError } = useContractWrite({
     address: contractAddress,
     abi: myNftABI,
     functionName: 'createTokenAndStartAuction',
     args: [tokenURIHash, BigInt(1), name, description],
   })
 
-  const onDrop = useCallback(async (acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles: any) => {
     // Prepare the file for uploading
+    console.log(acceptedFiles)
     const file = acceptedFiles[0]
 
     try {
       // Upload the file to Infura
       const res = await infura.uploadMetadata(file)
-
+      console.log(res)
       // If the upload was successful, update tokenURIHash and selectedImage
       setTokenURIHash(res.url)
       setSelectedImage(URL.createObjectURL(file))
@@ -62,9 +63,8 @@ export function CreateAuctionModal() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-  const createAuction = async () => {
-    try {
-      await write()
+  useEffect(() => {
+    if (isSuccess) {
       toast({
         title: 'Auction created.',
         description: "We've created your auction for you.",
@@ -72,8 +72,10 @@ export function CreateAuctionModal() {
         duration: 9000,
         isClosable: true,
       })
-    } catch (error) {
-      console.error(error)
+      onClose()
+    }
+
+    if (isError) {
       toast({
         title: 'An error occurred.',
         description: 'Unable to create the auction.',
@@ -81,6 +83,21 @@ export function CreateAuctionModal() {
         duration: 9000,
         isClosable: true,
       })
+    }
+    return () => {
+      setName('')
+      setDescription('')
+      setTokenURIHash('')
+      setAuctionEndTime('')
+      setSelectedImage(null)
+    }
+  }, [isSuccess, isError, onClose])
+
+  const createAuction = async () => {
+    try {
+      await write()
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -114,24 +131,8 @@ export function CreateAuctionModal() {
                 {selectedImage ? (
                   <Image src={selectedImage} alt="Selected Image" fill />
                 ) : (
-                  <Box
-                    {...getRootProps()}
-                    border="2px"
-                    borderRadius="md"
-                    borderColor={isDragActive ? 'green.500' : 'gray.500'}
-                    p="4"
-                    mt="2"
-                    mb="4"
-                    textAlign="center">
-                    <input {...getInputProps()} />
-                    {isDragActive ? <Text>Drop the files here ...</Text> : <Text>Drag n drop some files here, or click to select files</Text>}
-                  </Box>
+                  <input id="file-upload" type="file" name="file" onChange={(e) => onDrop(e.target.files)} />
                 )}
-              </FormControl>
-
-              <FormControl id="auctionEndTime" isRequired>
-                <FormLabel>Auction End Time</FormLabel>
-                <Input type="number" value={auctionEndTime} onChange={(e) => setAuctionEndTime(e.target.value)} />
               </FormControl>
             </form>
           </ModalBody>
