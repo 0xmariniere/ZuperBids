@@ -2,6 +2,7 @@
   "name": "nexth",
   "version": "0.1.0",
   "license": "MIT",
+  "description": "a nextjs template",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -27,6 +28,10 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@next/font": "13.1.1",
+    "@types/json-bigint": "^1.0.1",
+    "@types/libsodium-wrappers": "^0.7.10",
+    "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^9.0.1",
     "@web3modal/ethereum": "^2.4.1",
     "@web3modal/react": "^2.4.1",
     "axios": "^1.4.0",
@@ -34,6 +39,7 @@
     "framer-motion": "^8.0.2",
     "ipfs-http-client": "^60.0.0",
     "iron-session": "^6.3.1",
+    "libsodium-wrappers": "^0.7.11",
     "next": "13.1.1",
     "next-seo": "^5.15.0",
     "react": "18.2.0",
@@ -43,7 +49,8 @@
     "siwe": "^1.1.6",
     "usehooks-ts": "^2.9.1",
     "viem": "^0.3.22",
-    "wagmi": "^1.0.0-next.9"
+    "wagmi": "^1.0.0-next.9",
+    "zukit": "^0.2.4"
   },
   "devDependencies": {
     "@tsconfig/next": "^1.0.4",

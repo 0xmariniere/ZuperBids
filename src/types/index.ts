@@ -5,10 +5,10 @@ export interface State<T> {
 }
 
 export interface AuctionItem {
-  tokenId: BigInt
-  endTime: BigInt
+  tokenId: bigint
+  endTime: bigint
   owner: string
-  highestBid: BigInt
+  highestBid: bigint
   highestBidder: string
   tokenURIHash: string
   name: string

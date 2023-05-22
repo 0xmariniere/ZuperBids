@@ -1,9 +1,9 @@
 import React from 'react'
-import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue } from '@chakra-ui/react'
+import { Box, Image, Text, Grid, GridItem, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import { LinkComponent } from './LinkComponent'
-import { HeadingComponent } from './HeadingComponent'
 import { AuctionItem } from 'types'
 import { formatEther } from 'viem'
+
 interface Props {
   className?: string
   title?: string
@@ -13,38 +13,33 @@ interface Props {
 export function CardList(props: Props) {
   const className = props.className ?? ''
   const invert = useColorModeValue('20%', '80%')
+  const textColor = useColorModeValue('black', 'white')
 
   return (
     <Box as="section" className={className}>
-      {props.title && <HeadingComponent as="h3">{props.title}</HeadingComponent>}
+      {props.title && (
+        <Heading as="h3" size="lg" mb={6}>
+          {props.title}
+        </Heading>
+      )}
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} gap={6}>
+        {props.is.map((i, index) => (
+          <LinkComponent href={`/auction?auctionId=${i.tokenId}`} key={`${index}_${i.name}`}>
+            <GridItem borderRadius="lg" overflow="hidden" boxShadow="md" maxW="250px">
+              <Image src={i.tokenURIHash} alt={i.name} />
+              <Box p={4}>
+                <Heading as="h4" size="md" mb={2} color={textColor}>
+                  {i.name}
+                </Heading>
 
-      <Flex direction="column" gap={4}>
-        {props.is.map((i, index) => {
-          return (
-            <LinkComponent href={`/auction?auctionId=${i.tokenId}`} key={`${index}_${i.name}`}>
-              <Card key={`${index}_${i.name}`} variant="outline" size="sm">
-                <CardBody>
-                  <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
-                    <Flex px={{ base: 0, sm: 4 }}>
-                      <Image maxW="60px" src={i.tokenURIHash} alt={i.name} filter={`invert(${invert})`} />
-                    </Flex>
-
-                    <Flex direction="column">
-                      <HeadingComponent as="h4">i {i.name}</HeadingComponent>
-
-                      <Text mt={4}>
-                        Owner: {i.owner} <br />
-                        Highest Bid: {formatEther(i.highestBid)} ETH by {i.highestBidder} <br />
-                        description: {i.description}
-                      </Text>
-                    </Flex>
-                  </Flex>
-                </CardBody>
-              </Card>
-            </LinkComponent>
-          )
-        })}
-      </Flex>
+                <Text fontSize="sm" color={textColor}>
+                  Highest Bid: {formatEther(i.highestBid)} ETH
+                </Text>
+              </Box>
+            </GridItem>
+          </LinkComponent>
+        ))}
+      </Grid>
     </Box>
   )
 }

@@ -18,8 +18,6 @@ export function Layout(props: Props) {
       <Box position="fixed" bottom={2} right={2}>
         <NetworkStatus />
       </Box>
-
-      <Footer />
     </Box>
   )
 }

@@ -7,7 +7,7 @@ import { parseEther } from 'viem'
 
 const useAuctionItem = ({ id }: { id: number }) => {
   const [auctionItem, setAuctionItem] = useState<AuctionItem | null>(null)
-  const [bidPrice, setBidPrice] = useState<string | null>(null)
+  const [bidPrice, setBidPrice] = useState<number | null>(null)
   const { data, isError, isLoading } = useContractRead({
     address: CONTRACT_ADDRESS,
     abi: zupaBidsABI,
@@ -25,10 +25,10 @@ const useAuctionItem = ({ id }: { id: number }) => {
     abi: zupaBidsABI,
     functionName: 'placeBid',
     args: [id ? BigInt(id) : BigInt(9999999)],
-    value: bidPrice ? parseEther(bidPrice) : BigInt(0),
+    value: bidPrice ? parseEther(`${bidPrice}`) : BigInt(0),
   })
 
-  const placeBid = async (amount: string) => {
+  const placeBid = async (amount: number) => {
     // Convert the amount to Wei (the smallest unit of Ether)
     setBidPrice(amount)
   }
@@ -52,7 +52,7 @@ const useAuctionItem = ({ id }: { id: number }) => {
     if (bidPrice) {
       send()
     }
-  }, [bidPrice])
+  }, [bidPrice, send])
 
   return { auctionItem, isError, isLoading, placeBid, bidError, isBidding, isBidSuccess }
 }
