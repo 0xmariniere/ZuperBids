@@ -3,3 +3,14 @@ export interface State<T> {
   data?: T
   error?: string
 }
+
+export interface AcutionItem {
+  tokenId: BigInt
+  endTime: BigInt
+  owner: string
+  highestBid: BigInt
+  highestBidder: string
+  tokenURIHash: string
+  name: string
+  description: string
+}

@@ -1,23 +1,18 @@
 import { useContractRead } from 'wagmi'
 import { useEffect, useState } from 'react'
-import { myNftABI } from 'abis'
+import { zupaBidsABI } from 'abis'
 import { CONTRACT_ADDRESS } from 'utils/config'
-
-interface AcutionItem {
-  isActive: boolean
-  endTime: BigInt
-  owner: string
-  highestBid: BigInt
-  highestBidder: string
-  tokenURIHash: string
-}
+import { AcutionItem } from 'types'
 
 const useAuctionItem = ({ id }: { id: number }) => {
   const [auctionItem, setAuctionItem] = useState<AcutionItem | null>(null)
 
+  
+
+
   const { data, isError, isLoading } = useContractRead({
     address: CONTRACT_ADDRESS,
-    abi: myNftABI,
+    abi: zupaBidsABI,
     functionName: 'auctions',
     args: [BigInt(id)],
   })
@@ -25,23 +20,19 @@ const useAuctionItem = ({ id }: { id: number }) => {
   useEffect(() => {
     if (data) {
       setAuctionItem({
-        isActive: data[0],
+        tokenId: data[0],
         endTime: data[1],
         owner: data[2],
         highestBid: data[3],
         highestBidder: data[4],
         tokenURIHash: data[5],
+        name: data[6],
+        description: data[7],
       })
     }
   }, [data])
 
-  useEffect(() => {
-    if (auctionItem) {
-      console.log(auctionItem)
-    }
-  }, [auctionItem])
-
-  return { auctionItem }
+  return { auctionItem, isError, isLoading }
 }
 
 export default useAuctionItem

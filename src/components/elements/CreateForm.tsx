@@ -17,7 +17,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useDropzone } from 'react-dropzone'
-import { myNftABI } from 'abis'
+import { zupaBidsABI } from 'abis'
 import { CONTRACT_ADDRESS } from 'utils/config'
 import { useContractWrite } from 'wagmi'
 import axios from 'axios'
@@ -39,7 +39,7 @@ export function CreateAuctionModal() {
 
   const { data, isLoading, isSuccess, write, isError } = useContractWrite({
     address: contractAddress,
-    abi: myNftABI,
+    abi: zupaBidsABI,
     functionName: 'createTokenAndStartAuction',
     args: [tokenURIHash, BigInt(1), name, description],
   })
@@ -129,7 +129,7 @@ export function CreateAuctionModal() {
               <FormControl id="tokenURIHash" isRequired>
                 <FormLabel>Item image</FormLabel>
                 {selectedImage ? (
-                  <Image src={selectedImage} alt="Selected Image" fill />
+                  <Image src={selectedImage} alt="Selected Image" width={200} height={200} />
                 ) : (
                   <input id="file-upload" type="file" name="file" onChange={(e) => onDrop(e.target.files)} />
                 )}

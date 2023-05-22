@@ -1,35 +1,30 @@
 import { Head } from 'components/layout/Head'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
-import { myNftABI } from 'abis'
+import { zupaBidsABI } from 'abis'
 import { CONTRACT_ADDRESS } from 'utils/config'
 import { CardList } from 'components/layout/CardList'
 import { useContractRead } from 'wagmi'
-
 export default function Home() {
-  const {
-    data: allAuctions,
-    isError,
-    isLoading,
-  } = useContractRead({
+  const { data, isLoading } = useContractRead({
     address: CONTRACT_ADDRESS,
-    abi: myNftABI,
+    abi: zupaBidsABI,
     functionName: 'getAllAuctions',
   })
-  console.log(allAuctions)
+
   return (
     <>
       <Head />
-
       <main>
-        {!allAuctions || isLoading ? (
+        {!data || isLoading ? (
           <HeadingComponent as="h1" size="2xl">
             Loading...
           </HeadingComponent>
         ) : (
           <CardList
             title="Auctions"
-            is={allAuctions.map((auction) => {
+            is={data.map((auction) => {
               return {
+                tokenId: auction.tokenId,
                 name: auction.name,
                 description: auction.description,
                 tokenURIHash: auction.tokenURIHash,
@@ -37,7 +32,6 @@ export default function Home() {
                 highestBid: auction.highestBid,
                 highestBidder: auction.highestBidder,
                 endTime: auction.endTime,
-                isActive: auction.isActive,
               }
             })}
           />

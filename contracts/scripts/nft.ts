@@ -5,7 +5,7 @@ async function main() {
   const [deployer, recipient] = await ethers.getSigners()
 
   const args: any[] = []
-  const NexthFT = await ethers.getContractFactory('MyNFT')
+  const NexthFT = await ethers.getContractFactory('ZupaBids')
   const nft = await NexthFT.deploy(...args)
 
   await nft.deployed()
