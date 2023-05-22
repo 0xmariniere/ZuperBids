@@ -41,6 +41,11 @@ const config: HardhatUserConfig = {
       url: 'https://rpc.sepolia.org/',
       accounts: [deployerKey as string],
     },
+    goerli: {
+      chainId: 5,
+      url: 'https://ethereum-goerli.publicnode.com',
+      accounts: [deployerKey as string],
+    },
     mumbai: {
       chainId: 80001,
       url: 'https://rpc-mumbai.maticvigil.com/',

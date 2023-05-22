@@ -1,24 +1,39 @@
 import { Head } from 'components/layout/Head'
 import Router from 'next/router'
 import useAuctionItem from 'hooks/useAuctionItem'
-import { Box, Image, Text, Button, Heading, Skeleton, useToast } from '@chakra-ui/react'
-import { useContractWrite } from 'wagmi'
-import { CONTRACT_ADDRESS } from 'utils/config'
-import { zupaBidsABI } from 'abis'
+import { useEffect } from 'react'
+import {
+  Box,
+  Image,
+  Text,
+  Button,
+  Heading,
+  Skeleton,
+  useToast,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  FormControl,
+  FormLabel,
+  Input,
+  ModalFooter,
+} from '@chakra-ui/react'
+import { useState } from 'react'
 
 export default function Auction() {
   const { auctionId } = Router.query
 
-  const { auctionItem, isLoading, isError } = useAuctionItem({ id: Number(auctionId) })
+  const { auctionItem, placeBid, isLoading, isError, isBidSuccess, bidError } = useAuctionItem({ id: Number(auctionId) })
   const toast = useToast()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [bidAmount, setBidAmount] = useState('')
 
-  const write = async () => {
-    return 'write'
-  }
-
-  const placeBid = async () => {
-    try {
-      await write()
+  useEffect(() => {
+    if (isBidSuccess) {
       toast({
         title: 'Bid placed.',
         description: 'Your bid has been successfully placed!',
@@ -26,17 +41,21 @@ export default function Auction() {
         duration: 9000,
         isClosable: true,
       })
-    } catch (error) {
-      console.error(error)
+      onClose()
+    }
+  }, [isBidSuccess])
+
+  useEffect(() => {
+    if (bidError) {
       toast({
         title: 'An error occurred.',
-        description: 'Unable to place the bid.',
+        description: bidError.message,
         status: 'error',
         duration: 9000,
         isClosable: true,
       })
     }
-  }
+  }, [bidError])
 
   if (isLoading || !auctionItem) {
     return <Skeleton height="20rem" />
@@ -64,11 +83,32 @@ export default function Auction() {
             <Text mt={2} color="gray.500">
               Highest Bid:
             </Text>
-            <Button mt={3} colorScheme="teal" onClick={placeBid} isLoading={false}>
+            <Button mt={3} colorScheme="teal" onClick={onOpen} isLoading={false}>
               Place a bid
             </Button>
           </Box>
         </Box>
+
+        {/* Bid Modal */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Place a bid</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormControl>
+                <FormLabel>Enter bid amount</FormLabel>
+                <Input placeholder="0.00 ETH" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={() => placeBid(bidAmount)} isLoading={false}>
+                Submit
+              </Button>
+              <Button onClick={onClose}>Cancel</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </main>
     </>
   )

@@ -1,21 +1,37 @@
-import { useContractRead } from 'wagmi'
+import { useContractRead, useContractWrite } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { zupaBidsABI } from 'abis'
 import { CONTRACT_ADDRESS } from 'utils/config'
-import { AcutionItem } from 'types'
+import { AuctionItem } from 'types'
+import { parseEther } from 'viem'
 
 const useAuctionItem = ({ id }: { id: number }) => {
-  const [auctionItem, setAuctionItem] = useState<AcutionItem | null>(null)
-
-  
-
-
+  const [auctionItem, setAuctionItem] = useState<AuctionItem | null>(null)
+  const [bidPrice, setBidPrice] = useState<string | null>(null)
   const { data, isError, isLoading } = useContractRead({
     address: CONTRACT_ADDRESS,
     abi: zupaBidsABI,
     functionName: 'auctions',
-    args: [BigInt(id)],
+    args: [id ? BigInt(id) : BigInt(9999999)],
   })
+
+  const {
+    write: send,
+    error: bidError,
+    isLoading: isBidding,
+    isSuccess: isBidSuccess,
+  } = useContractWrite({
+    address: CONTRACT_ADDRESS,
+    abi: zupaBidsABI,
+    functionName: 'placeBid',
+    args: [id ? BigInt(id) : BigInt(9999999)],
+    value: bidPrice ? parseEther(bidPrice) : BigInt(0),
+  })
+
+  const placeBid = async (amount: string) => {
+    // Convert the amount to Wei (the smallest unit of Ether)
+    setBidPrice(amount)
+  }
 
   useEffect(() => {
     if (data) {
@@ -32,7 +48,13 @@ const useAuctionItem = ({ id }: { id: number }) => {
     }
   }, [data])
 
-  return { auctionItem, isError, isLoading }
+  useEffect(() => {
+    if (bidPrice) {
+      send()
+    }
+  }, [bidPrice])
+
+  return { auctionItem, isError, isLoading, placeBid, bidError, isBidding, isBidSuccess }
 }
 
 export default useAuctionItem

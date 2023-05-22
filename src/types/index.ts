@@ -4,7 +4,7 @@ export interface State<T> {
   error?: string
 }
 
-export interface AcutionItem {
+export interface AuctionItem {
   tokenId: BigInt
   endTime: BigInt
   owner: string

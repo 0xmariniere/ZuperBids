@@ -2,12 +2,12 @@ import React from 'react'
 import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue } from '@chakra-ui/react'
 import { LinkComponent } from './LinkComponent'
 import { HeadingComponent } from './HeadingComponent'
-import { AcutionItem } from 'types'
-
+import { AuctionItem } from 'types'
+import { formatEther } from 'viem'
 interface Props {
   className?: string
   title?: string
-  is: AcutionItem[]
+  is: AuctionItem[]
 }
 
 export function CardList(props: Props) {
@@ -34,8 +34,7 @@ export function CardList(props: Props) {
 
                       <Text mt={4}>
                         Owner: {i.owner} <br />
-                        Highest Bid: {Number(i.highestBid)} ETH by {i.highestBidder} <br />
-                        Status: {i.isActive ? 'Live' : 'Ended'} <br />
+                        Highest Bid: {formatEther(i.highestBid)} ETH by {i.highestBidder} <br />
                         description: {i.description}
                       </Text>
                     </Flex>

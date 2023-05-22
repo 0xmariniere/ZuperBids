@@ -16,7 +16,6 @@ import {
   Box,
   Text,
 } from '@chakra-ui/react'
-import { useDropzone } from 'react-dropzone'
 import { zupaBidsABI } from 'abis'
 import { CONTRACT_ADDRESS } from 'utils/config'
 import { useContractWrite } from 'wagmi'
@@ -41,7 +40,7 @@ export function CreateAuctionModal() {
     address: contractAddress,
     abi: zupaBidsABI,
     functionName: 'createTokenAndStartAuction',
-    args: [tokenURIHash, BigInt(1), name, description],
+    args: [tokenURIHash, BigInt(1684871788), name, description],
   })
 
   const onDrop = useCallback(async (acceptedFiles: any) => {
@@ -60,8 +59,6 @@ export function CreateAuctionModal() {
       console.error('Error uploading file:', error)
     }
   }, [])
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   useEffect(() => {
     if (isSuccess) {
