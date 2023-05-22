@@ -52,7 +52,7 @@ const useAuctionItem = ({ id }: { id: number }) => {
     if (bidPrice) {
       send()
     }
-  }, [bidPrice, send])
+  }, [bidPrice])
 
   return { auctionItem, isError, isLoading, placeBid, bidError, isBidding, isBidSuccess }
 }
