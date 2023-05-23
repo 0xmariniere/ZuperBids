@@ -40,7 +40,7 @@ export function CreateAuctionModal() {
     address: contractAddress,
     abi: zupaBidsABI,
     functionName: 'createTokenAndStartAuction',
-    args: [tokenURIHash, BigInt(1684871788), name, description],
+    args: [tokenURIHash, BigInt(1684886340), name, description],
   })
 
   const onDrop = useCallback(async (acceptedFiles: any) => {

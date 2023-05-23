@@ -141,7 +141,7 @@ export default function Auction() {
                   </VStack>
                 </Box>
               </HStack>
-              <Text>{auctionItem.description}</Text>
+              <Text p={4}>{auctionItem.description}</Text>
             </Box>
           </VStack>
           <HStack justify="end" mt={5}>

@@ -5,15 +5,24 @@ import { CONTRACT_ADDRESS } from 'utils/config'
 import { CardList } from 'components/layout/CardList'
 import { useContractRead } from 'wagmi'
 import { useZupass, ZupassLoginButton } from 'zukit'
+import { useEffect } from 'react'
 
 export default function Home() {
-  const { data, isLoading } = useContractRead({
+  const { data, isLoading, refetch } = useContractRead({
     address: CONTRACT_ADDRESS,
     abi: zupaBidsABI,
     functionName: 'getAllAuctions',
   })
 
   const [zupass] = useZupass()
+
+  useEffect(() => {
+    // refetch every 5 sec
+    const interval = setInterval(() => {
+      refetch()
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <>

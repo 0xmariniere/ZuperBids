@@ -8,12 +8,20 @@ import { parseEther } from 'viem'
 const useAuctionItem = ({ id }: { id: number }) => {
   const [auctionItem, setAuctionItem] = useState<AuctionItem | null>(null)
   const [bidPrice, setBidPrice] = useState<number | null>(null)
-  const { data, isError, isLoading } = useContractRead({
+  const { data, isError, isLoading, refetch } = useContractRead({
     address: CONTRACT_ADDRESS,
     abi: zupaBidsABI,
     functionName: 'auctions',
     args: [id ? BigInt(id) : BigInt(9999999)],
   })
+
+  useEffect(() => {
+    // interval
+    const interval = setInterval(() => {
+      refetch()
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
   const {
     write: send,

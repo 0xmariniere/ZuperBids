@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, useColorModeValue, Spacer, Heading } from '@chakra-ui/react'
+import { Flex, useColorModeValue, Spacer, Heading, useBreakpointValue } from '@chakra-ui/react'
 import { SITE_NAME } from 'utils/config'
 import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -13,18 +13,30 @@ interface Props {
 
 export function Header(props: Props) {
   const className = props.className ?? ''
+  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' }) as 'row' | 'column'
+  const justifyContent = flexDirection === 'row' ? 'space-between' : 'center'
+  const alignItems = flexDirection === 'row' ? 'center' : 'stretch'
+  const gap = useBreakpointValue({ base: 2, md: 4 })
 
   return (
-    <Flex as="header" className={className} px={4} py={2} mb={8} alignItems="center">
+    <Flex
+      as="header"
+      className={className}
+      px={{ base: 2, md: 4 }}
+      py={2}
+      mb={8}
+      direction={flexDirection}
+      justify={justifyContent}
+      alignItems={alignItems}>
       <LinkComponent href="/">
-        <Heading as="h1" size="md">
+        <Heading as="h1" size="md" textAlign={flexDirection === 'column' ? 'center' : 'left'}>
           {SITE_NAME}
         </Heading>
       </LinkComponent>
 
-      <Spacer />
+      {flexDirection === 'row' && <Spacer />}
 
-      <Flex alignItems="center" gap={4}>
+      <Flex alignItems="center" gap={gap} mt={{ base: 2, md: 0 }}>
         <PassportScore />
         <div style={{ textAlign: 'center', color: 'black' }}>
           <ZupassLoginButton />

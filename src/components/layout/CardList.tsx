@@ -13,7 +13,7 @@ interface Props {
 
 export function CardList(props: Props) {
   const className = props.className ?? ''
-  const textColor = useColorModeValue('white', 'white ')
+  const textColor = useColorModeValue('black', 'black')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortDesc, setSortDesc] = useState(false)
 
@@ -28,7 +28,7 @@ export function CardList(props: Props) {
   return (
     <Box as="section" className={className}>
       {props.title && (
-        <Heading as="h3" size="lg" mb={6} color={textColor}>
+        <Heading as="h3" size="lg" mb={6} color={'white'}>
           {props.title}
           <CreateForm />
         </Heading>
@@ -47,15 +47,17 @@ export function CardList(props: Props) {
               <Box maxH={'300px'} overflow={'hidden'} width={'100%'}>
                 <Image src={item.tokenURIHash} alt={item.name} width={'100%'} />
               </Box>
-              <Box p={4} bgColor={'orange.500'}>
+              <Box p={4} bgColor={'white'}>
                 <Heading as="h4" size="md" mb={2} color={textColor}>
                   {item.name}
                 </Heading>
 
                 <Text fontSize="lg" color={textColor} mb={2}>
-                  {formatEther(item.highestBid)} ETH
+                  <span style={{ fontWeight: 'bold' }}> Current bid:</span> {formatEther(item.highestBid)} ETH
                 </Text>
-
+                {/* <Text fontSize="lg" color={textColor} mb={2} textOverflow={'clip'} wordBreak={'break-word'}>
+                  <span style={{ fontWeight: 'bold' }}> Highest bidder:</span> {item.highestBidder}
+                </Text> */}
                 {/* <Text fontSize="lg" color={textColor} mb={2} overflow={'clip'}>
                   Highest Bidder: {item.highestBidder}
                 </Text> */}
