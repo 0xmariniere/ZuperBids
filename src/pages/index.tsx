@@ -49,7 +49,7 @@ export default function Home() {
           <HeadingComponent as="h1" size="2xl">
             Loading...
           </HeadingComponent>
-        ) : (
+        ) : zupass.status === 'logged-in' ? (
           <>
             <CardList
               title="Auctions"
@@ -67,6 +67,8 @@ export default function Home() {
               })}
             />
           </>
+        ) : (
+          <></>
         )}
       </main>
     </>
