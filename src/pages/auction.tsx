@@ -101,46 +101,48 @@ export default function Auction() {
   return (
     <>
       <Head />
-      <main>
-        <Box p="5">
-          <VStack spacing={4}>
+      <main color={'black'}>
+        <Box p="5" maxW={'500px'} w={'full'} mx={'auto'} mt={5}>
+          <VStack spacing={4} color={'black'}>
             <Box>
               <Image borderRadius="lg" src={auctionItem.tokenURIHash} alt={auctionItem.name} />
             </Box>
-            <HStack w="full">
-              <Heading fontWeight="bold" fontSize="xl" textTransform="uppercase">
-                {auctionItem.name}
-              </Heading>
-              <Spacer />
-              <Button colorScheme="teal" onClick={onOpen} isLoading={false}>
-                Place a bid
-              </Button>
-            </HStack>
-            <HStack w="full" spacing={4}>
-              <Box border="1px" borderColor="gray.200" borderRadius="md" p={2} w={'50%'}>
-                <VStack>
-                  <Text fontSize="md" fontWeight="bold">
-                    Current Bid:
-                  </Text>
-                  <Center>
-                    <Text fontSize="lg">{formatEther(auctionItem.highestBid) || '0'} ETH</Text>
-                  </Center>
-                </VStack>
-              </Box>
-              <Box border="1px" borderColor="gray.200" borderRadius="md" p={2} w={'50%'}>
-                <VStack>
-                  <Text fontSize="md" fontWeight="bold">
-                    End Time:
-                  </Text>
-                  <Center>
-                    <Text fontSize="lg" ml={4}>
-                      {timeLeft}
+            <Box bgColor={'white'} borderRadius="md" m={0} w={'full'} p={4}>
+              <HStack w="full">
+                <Heading fontWeight="bold" fontSize="xl" textTransform="uppercase" ml={4}>
+                  {auctionItem.name}
+                </Heading>
+                <Spacer />
+                <Button colorScheme="teal" onClick={onOpen} isLoading={false}>
+                  Place a bid
+                </Button>
+              </HStack>
+              <HStack w="full" spacing={4} mt={4}>
+                <Box border="1px" borderColor="gray.200" borderRadius="md" p={2} w={'50%'}>
+                  <VStack>
+                    <Text fontSize="md" fontWeight="bold">
+                      Current Bid:
                     </Text>
-                  </Center>
-                </VStack>
-              </Box>
-            </HStack>
-            <Text>{auctionItem.description}</Text>
+                    <Center>
+                      <Text fontSize="lg">{formatEther(auctionItem.highestBid) || '0'} ETH</Text>
+                    </Center>
+                  </VStack>
+                </Box>
+                <Box border="1px" borderColor="gray.200" borderRadius="md" p={2} w={'50%'}>
+                  <VStack>
+                    <Text fontSize="md" fontWeight="bold">
+                      End Time:
+                    </Text>
+                    <Center>
+                      <Text fontSize="lg" ml={4}>
+                        {timeLeft}
+                      </Text>
+                    </Center>
+                  </VStack>
+                </Box>
+              </HStack>
+              <Text>{auctionItem.description}</Text>
+            </Box>
           </VStack>
           <HStack justify="end" mt={5}>
             <Button onClick={goToPreviousAuction}>&lt;</Button>

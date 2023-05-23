@@ -20,7 +20,20 @@ export default function Home() {
       <Head />
       <main>
         {zupass.status === 'logged-out' ? (
-          <div style={{ textAlign: 'center', color: 'black' }}>
+          <div
+            style={{
+              textAlign: 'center',
+              color: 'black',
+              width: '100vw',
+              height: '100vh',
+              position: 'absolute',
+              backgroundColor: 'green',
+              top: 0,
+              left: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <ZupassLoginButton />
           </div>
         ) : !data || isLoading ? (
@@ -29,9 +42,6 @@ export default function Home() {
           </HeadingComponent>
         ) : (
           <>
-            <div style={{ textAlign: 'center', color: 'black' }}>
-              <ZupassLoginButton />
-            </div>
             <CardList
               title="Auctions"
               is={data.map((auction) => {

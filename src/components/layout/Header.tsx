@@ -5,7 +5,8 @@ import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { PassportScore } from './PassportScore'
 import { Web3Button } from '@web3modal/react'
-import CreateForm from 'components/elements/CreateForm'
+import { useZupass, ZupassLoginButton } from 'zukit'
+
 interface Props {
   className?: string
 }
@@ -14,7 +15,7 @@ export function Header(props: Props) {
   const className = props.className ?? ''
 
   return (
-    <Flex as="header" className={className} bg={useColorModeValue('gray.100', 'gray.900')} px={4} py={2} mb={8} alignItems="center">
+    <Flex as="header" className={className} px={4} py={2} mb={8} alignItems="center">
       <LinkComponent href="/">
         <Heading as="h1" size="md">
           {SITE_NAME}
@@ -25,9 +26,10 @@ export function Header(props: Props) {
 
       <Flex alignItems="center" gap={4}>
         <PassportScore />
-        <CreateForm />
+        <div style={{ textAlign: 'center', color: 'black' }}>
+          <ZupassLoginButton />
+        </div>
         <Web3Button icon="hide" label="Connect" />
-        <ThemeSwitcher />
       </Flex>
     </Flex>
   )

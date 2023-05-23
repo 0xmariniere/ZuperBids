@@ -100,12 +100,14 @@ export function CreateAuctionModal() {
 
   return (
     <>
-      <Button onClick={onOpen}>Create Auction</Button>
+      <Button ml={3} onClick={onOpen} color={'black'}>
+        Create Auction
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create Auction</ModalHeader>
+          <ModalHeader ml={3}>Create Auction</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form

@@ -18,6 +18,7 @@ contract ZupaBids is ERC721, Ownable, ReentrancyGuard {
     string tokenURIHash;
     string name;
     string description;
+    string telegramId;
   }
 
   event AuctionCreated(uint256 tokenId);
@@ -31,11 +32,12 @@ contract ZupaBids is ERC721, Ownable, ReentrancyGuard {
     string memory tokenURIHash,
     uint256 auctionEndTime,
     string memory name,
-    string memory description
+    string memory description, 
+    string memory telegramId
   ) public returns (uint256) {
     tokenCounter += 1;
     _mint(msg.sender, tokenCounter);
-    auctions[tokenCounter] = Auction(tokenCounter, auctionEndTime, msg.sender, 0, address(0), tokenURIHash, name, description);
+    auctions[tokenCounter] = Auction(tokenCounter, auctionEndTime, msg.sender, 0, address(0), tokenURIHash, name, description, telegramId);
     emit AuctionCreated(tokenCounter);
     return tokenCounter;
   }
