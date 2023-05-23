@@ -63,6 +63,7 @@ export default function Home() {
                   highestBid: auction.highestBid,
                   highestBidder: auction.highestBidder,
                   endTime: auction.endTime,
+                  telegramId: auction.telegramId,
                 }
               })}
             />

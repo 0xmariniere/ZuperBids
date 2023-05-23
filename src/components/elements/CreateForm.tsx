@@ -32,7 +32,7 @@ export function CreateAuctionModal() {
   const [tokenURIHash, setTokenURIHash] = useState('')
   const [auctionEndTime, setAuctionEndTime] = useState('')
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-
+  const [handle, setHandle] = useState('')
   const toast = useToast()
   const infura = new Infura()
 
@@ -40,7 +40,7 @@ export function CreateAuctionModal() {
     address: contractAddress,
     abi: zupaBidsABI,
     functionName: 'createTokenAndStartAuction',
-    args: [tokenURIHash, BigInt(1684886340), name, description],
+    args: [tokenURIHash, BigInt(1684886340), name, description, handle],
   })
 
   const onDrop = useCallback(async (acceptedFiles: any) => {
@@ -124,7 +124,10 @@ export function CreateAuctionModal() {
                 <FormLabel>Description</FormLabel>
                 <Input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
               </FormControl>
-
+              <FormControl id="description" isRequired>
+                <FormLabel>Telegram handle</FormLabel>
+                <Input type="text" value={handle} onChange={(e) => setHandle(e.target.value)} />
+              </FormControl>
               <FormControl id="tokenURIHash" isRequired>
                 <FormLabel>Item image</FormLabel>
                 {selectedImage ? (

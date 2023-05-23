@@ -13,4 +13,5 @@ export interface AuctionItem {
   tokenURIHash: string
   name: string
   description: string
+  telegramId: string
 }

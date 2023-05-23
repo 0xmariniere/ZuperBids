@@ -58,7 +58,7 @@ export function CardList(props: Props) {
                 <Heading as="h4" size="md" mb={2} color={textColor}>
                   {item.name}
                 </Heading>
-
+                <text style={{ fontWeight: 300 }}>{item.telegramId}</text>
                 <Text fontSize="lg" color={textColor} mb={2}>
                   <span style={{ fontWeight: 'bold' }}> Current bid:</span> {formatEther(item.highestBid)} ETH
                 </Text>

@@ -52,6 +52,7 @@ const useAuctionItem = ({ id }: { id: number }) => {
         tokenURIHash: data[5],
         name: data[6],
         description: data[7],
+        telegramId: data[8],
       })
     }
   }, [data])

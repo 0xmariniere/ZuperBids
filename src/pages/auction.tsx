@@ -130,6 +130,7 @@ export default function Auction() {
                 <HStack w="full">
                   <Heading fontWeight="bold" fontSize="xl" textTransform="uppercase" ml={4}>
                     {auctionItem.name}
+                    <text style={{ fontWeight: 300 }}>{auctionItem.telegramId}</text>
                   </Heading>
                   <Spacer />
                   <Button colorScheme="teal" onClick={onOpen} isLoading={false}>
