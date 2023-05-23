@@ -15,7 +15,7 @@ export const THEME_CONFIG = {
 export const SOCIAL_TWITTER = 'wslyvh'
 export const SOCIAL_GITHUB = 'wslyvh/nexth'
 
-export const ETH_CHAINS = [goerli]
+export const ETH_CHAINS = [optimism]
 
 export const SERVER_SESSION_SETTINGS = {
   cookieName: SITE_NAME,
@@ -25,4 +25,4 @@ export const SERVER_SESSION_SETTINGS = {
   },
 }
 
-export const CONTRACT_ADDRESS = '0x5127C2aD997082598A5DFF4a5441A94aEA85a204'
+export const CONTRACT_ADDRESS = '0x5149bD931563855F63d2Cd378e9044aBCEB1bAC6'
