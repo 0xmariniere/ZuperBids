@@ -35,7 +35,14 @@ export function CardList(props: Props) {
       )}
 
       <Flex mb={6} justify="space-between">
-        <Input mr={4} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search by name" color={'white'} />
+        <Input
+          mr={4}
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          _placeholder={{ color: 'white' }}
+          placeholder="Search by name"
+          color={'white'}
+        />
 
         <Button onClick={() => setSortDesc(!sortDesc)}>Sort</Button>
       </Flex>
