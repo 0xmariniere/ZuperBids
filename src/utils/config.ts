@@ -2,7 +2,7 @@ import { ThemingProps } from '@chakra-ui/react'
 import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
 import { polygonMumbai, goerli } from 'viem/chains'
 
-export const SITE_NAME = 'ZupaBid 🍝'
+export const SITE_NAME = 'ZuperBids'
 export const SITE_DESCRIPTION = 'Next.js + Ethereum starter kit'
 export const SITE_URL = 'https://nexth.vercel.app'
 

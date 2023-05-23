@@ -10,7 +10,7 @@ interface Props {
 
 export function Layout(props: Props) {
   return (
-    <Box margin="0 auto" minH="100vh" bgImage={'/bg.jpeg'} pb={5}>
+    <Box margin="0 auto" minH="100vh" bgImage={'/bg.jpg'} pb={5} bgSize={'cover'} bgRepeat={'no-repeat'}>
       <Header />
 
       <Container maxW="container.lg">{props.children}</Container>

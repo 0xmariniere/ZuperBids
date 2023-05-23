@@ -6,7 +6,8 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 import { PassportScore } from './PassportScore'
 import { Web3Button } from '@web3modal/react'
 import { useZupass, ZupassLoginButton } from 'zukit'
-
+import logo from 'assets/icons/logo.png'
+import Image from 'next/image'
 interface Props {
   className?: string
 }
@@ -29,8 +30,8 @@ export function Header(props: Props) {
       justify={justifyContent}
       alignItems={alignItems}>
       <LinkComponent href="/">
-        <Heading as="h1" size="md" textAlign={flexDirection === 'column' ? 'center' : 'left'}>
-          {SITE_NAME}
+        <Heading as="h1" size="lg" textAlign={flexDirection === 'column' ? 'center' : 'left'} color={'white'}>
+          <Image src={logo} alt="logo" width={200} />
         </Heading>
       </LinkComponent>
 
