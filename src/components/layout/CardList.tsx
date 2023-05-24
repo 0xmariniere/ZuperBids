@@ -49,28 +49,34 @@ export function CardList(props: Props) {
 
       <Grid templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} gap={6}>
         {filteredis.map((item, index) => (
-          <LinkComponent href={`/auction?auctionId=${item.tokenId}`} key={`${index}_${item.name}`}>
-            <GridItem borderRadius="lg" overflow="hidden" boxShadow="md" maxW={'100%'}>
-              <Box maxH={'300px'} overflow={'hidden'} width={'100%'}>
-                <Image src={item.tokenURIHash} alt={item.name} width={'100%'} />
-              </Box>
-              <Box p={4} bgColor={'white'}>
-                <Heading as="h4" size="md" mb={2} color={textColor}>
-                  {item.name}
-                </Heading>
-                <text style={{ fontWeight: 300 }}>{item.telegramId}</text>
-                <Text fontSize="lg" color={textColor} mb={2}>
-                  <span style={{ fontWeight: 'bold' }}> Current bid:</span> {formatEther(item.highestBid)} ETH
-                </Text>
-                {/* <Text fontSize="lg" color={textColor} mb={2} textOverflow={'clip'} wordBreak={'break-word'}>
+          <>
+            {Number(item.tokenId) === 2 ? (
+              <></>
+            ) : (
+              <LinkComponent href={`/auction?auctionId=${item.tokenId}`} key={`${index}_${item.name}`}>
+                <GridItem borderRadius="lg" overflow="hidden" boxShadow="md" maxW={'100%'}>
+                  <Box maxH={'300px'} overflow={'hidden'} width={'100%'}>
+                    <Image src={item.tokenURIHash} alt={item.name} width={'100%'} />
+                  </Box>
+                  <Box p={4} bgColor={'white'}>
+                    <Heading as="h4" size="md" mb={2} color={textColor}>
+                      {item.name}
+                    </Heading>
+                    <text style={{ fontWeight: 300 }}>{item.telegramId}</text>
+                    <Text fontSize="lg" color={textColor} mb={2}>
+                      <span style={{ fontWeight: 'bold' }}> Current bid:</span> {formatEther(item.highestBid)} ETH
+                    </Text>
+                    {/* <Text fontSize="lg" color={textColor} mb={2} textOverflow={'clip'} wordBreak={'break-word'}>
                   <span style={{ fontWeight: 'bold' }}> Highest bidder:</span> {item.highestBidder}
                 </Text> */}
-                {/* <Text fontSize="lg" color={textColor} mb={2} overflow={'clip'}>
+                    {/* <Text fontSize="lg" color={textColor} mb={2} overflow={'clip'}>
                   Highest Bidder: {item.highestBidder}
                 </Text> */}
-              </Box>
-            </GridItem>
-          </LinkComponent>
+                  </Box>
+                </GridItem>
+              </LinkComponent>
+            )}
+          </>
         ))}
       </Grid>
     </Box>

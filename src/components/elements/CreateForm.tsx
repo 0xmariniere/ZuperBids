@@ -35,6 +35,7 @@ export function CreateAuctionModal() {
   const [handle, setHandle] = useState('')
   const toast = useToast()
   const infura = new Infura()
+  const [isReady, setIsReady] = useState(false)
 
   const { data, isLoading, isSuccess, write, isError } = useContractWrite({
     address: contractAddress,
@@ -55,6 +56,7 @@ export function CreateAuctionModal() {
       // If the upload was successful, update tokenURIHash and selectedImage
       setTokenURIHash(res.url)
       setSelectedImage(URL.createObjectURL(file))
+      setIsReady(true)
     } catch (error) {
       console.error('Error uploading file:', error)
     }
@@ -139,7 +141,7 @@ export function CreateAuctionModal() {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} isLoading={isLoading} onClick={createAuction}>
+            <Button colorScheme="blue" mr={3} isLoading={isLoading} onClick={createAuction} isDisabled={!isReady}>
               Create
             </Button>
             {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
